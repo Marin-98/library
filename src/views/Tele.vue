@@ -15,5 +15,9 @@ export default{
 </script>
 
 <style scoped>
-
+@media screen and (max-width: 750px) {
+  .el-message-box {
+    width: 60% !important;
+  }
+}
 </style>
