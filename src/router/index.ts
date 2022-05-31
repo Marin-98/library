@@ -5,16 +5,16 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/Tele.vue')
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import('../views/LoginView.vue')
-  },{
-    path: '/tele',
-    name: 'tele',
-    component: () => import('../views/Tele.vue')
+  // },{
+  //   path: '/tele',
+  //   name: 'tele',
+  //   component: () => import('../views/Tele.vue')
   },
   {
     path: '/:catchAll(.*)',
