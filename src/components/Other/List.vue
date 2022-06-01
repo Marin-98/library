@@ -7,10 +7,10 @@
             <p>电话：{{ item.stele }}</p>
         </div>
         <div class="delimg">
-             <img class="del" @click="del(item.sno)" src="../assets/delete.png" />
+             <img class="del" @click="del(item.sno)" src="../../assets/delete.png" />
         </div>
     </div>
-    <img class="add" @click="dialogVisible = true" src="../assets/add.png"/>
+    <img class="add" @click="dialogVisible = true" src="../../assets/add.png"/>
     <el-dialog
     v-model="dialogVisible"
     title="添加学生"
@@ -63,7 +63,7 @@
 
 <script lang="ts">
 import { reactive, ref } from "vue";
-import { DelStuInfo, getStuInfo } from "../utils/serve";
+import { DelStuInfo, getStuInfo } from "../../utils/serve";
 import {  ElMessage, ElMessageBox } from 'element-plus'
 import { fa } from "element-plus/lib/locale";
 

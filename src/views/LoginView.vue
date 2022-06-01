@@ -37,8 +37,8 @@
   
   import { loginUser, rules } from "@/utils/loginValidators";
   import { registerUser, registerRules } from "@/utils/registerValidators";
-  import LoginForm from "@/components/LoginForm.vue";
-  import RegisterForm from "@/components/RegisterForm.vue";
+  import LoginForm from "@/components/Login/LoginForm.vue";
+  import RegisterForm from "@/components/Login/RegisterForm.vue";
   export default{
     name: "LoginView",
     components: { LoginForm, RegisterForm },

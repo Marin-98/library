@@ -5,15 +5,9 @@
 
 </template>
 
-<script lang="ts">
-import List from "@/components/List.vue"
-export default{
-    name: "Tele",
-    components: { List },
-}
-
+<script lang="ts" setup>
+import List from "@/components/Other/List.vue"
 </script>
-
 <style scoped>
 @media screen and (max-width: 750px) {
   .el-message-box {
