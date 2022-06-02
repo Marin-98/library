@@ -121,8 +121,11 @@ export default {
     line-height: 2;
     color: #181818;
 }
+:deep(div.el-input__wrapper){
+  width: 195px;
+}
 .el-input {
-    width: 189.5px;
+    width: 217px;
     height: 30px;
     margin: 4px 0;
     font-size: 13px;

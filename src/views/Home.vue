@@ -4,9 +4,10 @@
       <el-scrollbar>
         <el-menu 
         :collapse="isCollapse"
-         default-active="2"
+        :default-active="activeIndex"
          class="el-menu-vertical-demo"
          background-color="#304156"
+         router
          unique-opened>
           <Aside style="color:#f4f4f5"  :menuList="menuList" />
         </el-menu>
@@ -17,10 +18,7 @@
             <Header />
         </el-header>
         <el-main>
-            <el-scrollbar>
-              <!-- <route-view></route-view> -->
-            <Content />
-            </el-scrollbar>
+              <router-view></router-view>
         </el-main> 
     </el-container>
   </el-container>
@@ -29,29 +27,44 @@
 <script lang="ts" setup>
 import Aside from '@/components/Layout/Aside.vue';
 import Header from '@/components/Layout/Header.vue';
-import Content from '@/components/Layout/Content.vue';
-
+import { useRoute } from 'vue-router';
 import { reactive } from 'vue';
 import { computed } from 'vue';
 import {collpase} from '@/store/index';
+import Home from '../views/Home.vue'
 const store=collpase()
 const isCollapse=computed(()=>{
   return  store.getCollapse
 })
+const route=useRoute()
+const activeIndex=computed(()=>{
+  const {path}=route;
+  return path;
+})
 let menuList=reactive([
         {
           path:"/home",
-          component:"components",
+          component:Home,
           name:"home",
           meta:{ 
             title:"首页",
             icon:"HomeFilled",
           },
-          nochild:true
+          children:[
+                  {
+                    path:"/homeindex",
+                    component:"@/components/Layout/Content/home/index.vue",
+                    name:"",
+                    meta:{
+                      title:"首页信息",
+                      icon:"",
+                    }
+                  }
+              ],
         },
         {
           path:"/system",
-          component:"components",
+          component:Home,
           name:"system",
           meta:{ 
             title:"系统设置",
@@ -59,19 +72,19 @@ let menuList=reactive([
           },
               children:[
                   {
-                    path:"",
-                    component:"components",
+                    path:"/systemindex",
+                    component:"@/components/Layout/Content/system/index.vue",
                     name:"",
                     meta:{
-                      title:"Option 1",
-                      icon:"",
+                      title:"系统信息",
+                      icon:"Setting",
                     }
                   }
               ],
         },
          {
           path:"/student",
-          component:"components",
+          component:Home,
           name:"student",
           meta:{ 
             title:"学生管理",
@@ -79,11 +92,11 @@ let menuList=reactive([
           },
               children:[
                   {
-                    path:"",
-                    component:"components",
+                    path:"/studentindex",
+                    component:"@/components/Layout/Content/student/index.vue",
                     name:"",
                     meta:{
-                      title:"Option 1",
+                      title:"学生信息",
                       icon:"",
                     }
                   }
@@ -91,7 +104,7 @@ let menuList=reactive([
         },
         {
           path:"/reading",
-          component:"components",
+          component:Home,
           name:"reading",
           meta:{ 
             title:"阅览室管理",
@@ -99,19 +112,37 @@ let menuList=reactive([
           },
               children:[
                   {
-                    path:"",
-                    component:"components",
+                    path:"/seat",
+                    // component:"@/components/Layout/Content/reading/Seat.vue",
                     name:"",
                     meta:{
-                      title:"Option 1",
-                      icon:"",
+                      title:"座位管理",
+                      icon:"Place",
                     }
                   }
-              ],
+                   ,{
+                    path:"/readingroom",
+                    // component:"@/components/Layout/Content/reading/ReadingRoom.vue",
+                    name:"",
+                    meta:{
+                      title:"阅览室类型",
+                      icon:"Collection",
+                    }
+                  }
+                  ,{
+                    path:"/subreCard",
+                    // component:"@/components/Layout/Content/reading/SubReCard.vue",
+                    name:"",
+                    meta:{
+                      title:"学生座位预约记录",
+                      icon:"List",
+                    }
+                  }
+          ]
         },
          {
           path:"/score",
-          component:"components",
+          component:Home,
           name:"score",
           meta:{ 
             title:"信用积分管理",
@@ -119,11 +150,11 @@ let menuList=reactive([
           },
               children:[
                   {
-                    path:"",
-                    component:"",
+                    path:"/scoreindex",
+                    component:"@/components/Layout/Content/score/index.vue",
                     name:"",
                     meta:{
-                      title:"Option 1",
+                      title:"信用积分信息",
                       icon:"",
                     }
                   }
@@ -131,7 +162,7 @@ let menuList=reactive([
         },
         {
           path:"/class",
-          component:"",
+          component:Home,
           name:"class",
           meta:{ 
             title:"班级管理",
@@ -139,11 +170,11 @@ let menuList=reactive([
           },
               children:[
                 {
-                  path:"",
-                  component:"",
+                  path:"/classindex",
+                  component:"@/components/Layout/Content/class/index.vue",
                   name:"",
                   meta:{
-                    title:"Option 1",
+                    title:"班级信息",
                     icon:"",
                   }
                 }
@@ -208,7 +239,7 @@ let menuList=reactive([
 :deep(.el-menu .el-menu-item){
   color:#bfcbd9;
 }
-:deep(.el-menu-item .is-active){
+:deep(.el-menu-item.is-active){
   color: #409eff!important;
 }
 :deep(.is-opened .el-menu-item){
