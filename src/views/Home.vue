@@ -3,6 +3,7 @@
     <el-aside width="auto">
       <el-scrollbar>
         <el-menu 
+        :collapse="isCollapse"
          default-active="2"
          class="el-menu-vertical-demo"
          background-color="#304156"
@@ -20,7 +21,7 @@
               <!-- <route-view></route-view> -->
             <Content />
             </el-scrollbar>
-        </el-main>
+        </el-main> 
     </el-container>
   </el-container>
 </template>
@@ -28,8 +29,15 @@
 <script lang="ts" setup>
 import Aside from '@/components/Layout/Aside.vue';
 import Header from '@/components/Layout/Header.vue';
-// import Content from '@/components/Layout/Content.vue';
+import Content from '@/components/Layout/Content.vue';
+
 import { reactive } from 'vue';
+import { computed } from 'vue';
+import {collpase} from '@/store/index';
+const store=collpase()
+const isCollapse=computed(()=>{
+  return  store.getCollapse
+})
 let menuList=reactive([
         {
           path:"/home",
@@ -39,6 +47,7 @@ let menuList=reactive([
             title:"首页",
             icon:"HomeFilled",
           },
+          nochild:true
         },
         {
           path:"/system",
@@ -157,11 +166,13 @@ let menuList=reactive([
   position: relative;
   background-color: var(--el-color-primary-light-7);
   color: var(--el-text-color-primary);
+  display: flex;
+ align-items: center;
 }
-.layout-container-demo .el-aside {
+/* .layout-container-demo .el-aside {
   color: var(--el-text-color-primary);
   background: var(--el-color-primary-light-8);
-}
+} */
 .layout-container-demo .el-menu {
     height: 100%;
   border-right: none;
@@ -193,10 +204,11 @@ let menuList=reactive([
 :deep(.el-sub-menu .el-sub-menu__title){
   color: #f4f4f5!important;
 }
+
 :deep(.el-menu .el-menu-item){
   color:#bfcbd9;
 }
-:deep(.el-menu-item.is-active){
+:deep(.el-menu-item .is-active){
   color: #409eff!important;
 }
 :deep(.is-opened .el-menu-item){
@@ -205,4 +217,5 @@ let menuList=reactive([
 :deep(.el-menu-item:hover){
   background-color: #001528!important;
 }
+
 </style>

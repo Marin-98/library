@@ -1,14 +1,19 @@
-import { createStore } from 'vuex'
+import { defineStore } from 'pinia'
 
-export default createStore({
-  state: {
+export const collpase=defineStore('collapseseStore',{
+  state:()=> {
+    return {
+      collapse:false,
+    }
   },
   getters: {
-  },
-  mutations: {
+    getCollapse(state) {
+      return state.collapse
+    }
   },
   actions: {
-  },
-  modules: {
+    setCollapse(collapse:boolean){
+      this.collapse = collapse;
+    }
   }
 })

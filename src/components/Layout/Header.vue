@@ -3,7 +3,9 @@
          
         </div>   -->
         <div class="toolbar">
-            <el-icon class="menu"><Menu /></el-icon>
+            <el-icon class="menu" @click="setCollapse">
+              <component :is="status ? Fold : Expand"></component>
+            </el-icon>
           <el-dropdown>
             <el-icon style="margin-right: 8px; margin-top: 1px">
                 <setting/>
@@ -21,7 +23,16 @@
 </template>
 
 <script setup lang="ts">
-import { Menu as Menu,Setting } from '@element-plus/icons-vue'
+import {Fold,Expand} from '@element-plus/icons-vue'
+import {collpase} from '@/store/index';
+import { computed } from 'vue';
+const store=collpase()
+const status=computed(()=>{
+  return  !store.getCollapse
+})
+const setCollapse=()=>{
+  store.setCollapse(!store.getCollapse)
+}
 </script>
 
 <style scoped>
@@ -29,6 +40,11 @@ import { Menu as Menu,Setting } from '@element-plus/icons-vue'
     margin-left: 8px;
     width: 70%;
     margin-top: 1px;
+}
+.el-icon{
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
 }
 /* .theme {
   display: flex;

@@ -1,11 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+// import store from './store'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import axios from './http'
 import * as ElIconModules from '@element-plus/icons-vue'
+import {createPinia} from 'pinia'
 
 
 
@@ -13,9 +14,10 @@ const app = createApp(App)
 
 // 全局挂载axios
 app.config.globalProperties.$axios = axios;
-
+const pinia = createPinia()
+	app.use(pinia)
 app.use(ElementPlus);
-app.use(store)
+// app.use(store)
 app.use(router)
 
 Object.keys(ElIconModules).forEach(function (key) {
