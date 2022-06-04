@@ -6,15 +6,17 @@
         :collapse="isCollapse"
         :default-active="activeIndex"
          class="el-menu-vertical-demo"
-         background-color="#304156"
+         background-color="#FFF"
          router
          unique-opened>
           <Aside style="color:#f4f4f5"  :menuList="menuList" />
         </el-menu>
-       </el-scrollbar>
+      </el-scrollbar>
     </el-aside>
     <el-container>
-        <el-header style="text-align: right; font-size: 12px">
+        <el-header 
+        style="text-align: right; font-size: 12px"
+        >
             <Header />
         </el-header>
         <el-main>
@@ -181,6 +183,12 @@ let menuList=reactive([
               ],
         },
       ])
+
+// const type='light'
+
+// const getCssVarName = (type: string) => {
+//   return `--el-box-shadow${type ? '-' : ''}${type}`
+// }
 </script>
 
 <style scoped>
@@ -195,7 +203,8 @@ let menuList=reactive([
 
 .layout-container-demo .el-header {
   position: relative;
-  background-color: var(--el-color-primary-light-7);
+  background-color: #fff;
+  /* background-color: var(--el-color-primary-light-7); */
   color: var(--el-text-color-primary);
   display: flex;
  align-items: center;
@@ -210,6 +219,9 @@ let menuList=reactive([
 }
 .layout-container-demo .el-main {
   padding: 0;
+  width: 100%;
+  background-color: #f5f6fa;
+  overflow-x: hidden;
 }
 .layout-container-demo .toolbar {
   display: inline-flex;
@@ -221,9 +233,13 @@ let menuList=reactive([
 /*menu*/
 .el-aside{
     height: 100vh;
+    border-right: 1px solid var(--el-border-color);
 }
 .el-scrollbar {
-    background-color: #304156;
+
+    /* background-color: #304156; */
+    background-color: #fff;
+    box-shadow: #333;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse){
   width: 230px;
@@ -233,7 +249,8 @@ let menuList=reactive([
   border-right: none;
 }
 :deep(.el-sub-menu .el-sub-menu__title){
-  color: #f4f4f5!important;
+  /* color: #f4f4f5!important; */
+  color: #333!important;
 }
 
 :deep(.el-menu .el-menu-item){
@@ -243,10 +260,17 @@ let menuList=reactive([
   color: #409eff!important;
 }
 :deep(.is-opened .el-menu-item){
-  background-color: #1f2d3d!important;
+  /* background-color: #1f2d3d!important; */
+  background-color: #fff!important;
 }
 :deep(.el-menu-item:hover){
-  background-color: #001528!important;
+  /* background-color: #001528!important; */
+  color: #409eff!important;
 }
 
+/*button*/
+:deep(.el-button)
+{
+  border-radius: 0;
+}
 </style>

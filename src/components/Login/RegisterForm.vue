@@ -55,7 +55,7 @@
 
 <script lang="ts">
 import axios from "axios";
-import { ref, getCurrentInstance } from "vue";
+import { ref, getCurrentInstance, reactive } from "vue";
 export default {
   props: {
     registerUser: {
@@ -80,17 +80,13 @@ export default {
             data: ctx.registerUser,
           })
             .then((res) => {
-              alert(res.data);
-              // if (res.data.code === 200) {
-              //   alert("注册成功");
-              //   // ctx.$router.push("/login");
-              // } else {
-              //   ctx.$message.error(res.data.msg);
-              // }
+              alert(res.data.msg);
+              ctx.registerUser.name="";
+              ctx.registerUser.email="";
+              ctx.registerUser.password="";
+              ctx.registerUser.password2="";
+              ctx.registerUser.role="";
             })
-            .catch((err) => {
-              console.log(err);
-            });
         } else {
           console.log("error submit!!");
           return false;
@@ -98,7 +94,7 @@ export default {
       });
     };
     return { 
-      handleRegister 
+      handleRegister
     };
   },
 };

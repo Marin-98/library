@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 
 const routes:Array<RouteRecordRaw> = [
   {
-    path: '/login',
+    path: '/',
     name: 'Login',
     component: () => import('../views/LoginView.vue')
   },
@@ -14,10 +14,10 @@ const routes:Array<RouteRecordRaw> = [
     component: () => import('../views/404.vue')
   },
   {
-          path:"/",
+          path:"/home",
           component:Home,
           name: "home",
-          redirect: "/homeindex",
+          redirect: "/seat",
           children:[
                   {
                     path:"/homeindex",
@@ -51,14 +51,23 @@ const routes:Array<RouteRecordRaw> = [
           component:Home,
           name:"student",
               children:[
-                  {
-                    path:"/studentindex",
-                    component:()=>import("@/components/Layout/Content/student/index.vue"),
+                {
+                  path: "/studentindex",
+                  component: () => import("@/components/Layout/Content/student/index.vue"),
+                  name: "",
+                  meta: {
+                    title: "学生信息",
+                    icon: "",
+                  },
+                },
+                 {
+                  path: "/userinfo",
+                    component:()=>import("@/components/Layout/Content/student/studentInfo.vue"),
                     name:"",
                     meta:{
-                      title:"学生信息",
+                      title:"个人信息",
                       icon:"",
-                    }
+                    },
                   }
               ],
         },

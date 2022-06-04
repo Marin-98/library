@@ -1,17 +1,26 @@
 <template>
     <div class="body">
-      <div class="main">
+      <div class="main" :style="{
+          boxShadow: `var(--el-box-shadow-light)`,
+        }">
         <div class="container a-container" id="a-container">
             <RegisterForm
+        :style="{
+          boxShadow: `var(--el-box-shadow-dark)`,
+        }"
           :registerUser="registerUser"
           :registerRules="registerRules"/> 
         </div>
         
         <div class="container b-container" id="b-container">
-            <LoginForm :loginUser="loginUser" :rules="rules"/>
+            <LoginForm :loginUser="loginUser" :rules="rules" :style="{
+          boxShadow: `var(--el-box-shadow-dark)`,
+        }"/>
         </div>
 
-        <div class="switch" id="switch-cnt">
+        <div class="switch" id="switch-cnt" :style="{
+          boxShadow: `var(--el-box-shadow)`,
+        }">
             <div class="switch__circle"></div>
             <div class="switch__circle switch__circle--t"></div>
             <div class="switch__container" id="switch-c1">

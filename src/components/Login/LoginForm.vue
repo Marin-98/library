@@ -41,6 +41,7 @@
 <script lang="ts">
 import axios from "axios";
 import { ref, getCurrentInstance, reactive } from "vue";
+import { useRouter } from "vue-router";
 export default {
   props: {
     loginUser: {
@@ -55,33 +56,35 @@ export default {
   setup() {
     // @ts-ignore
     const { ctx } = getCurrentInstance();
-
+    const router = useRouter();
     // 触发登录方法
     const handleLogin = (formName: string) => {
-      ctx.$refs[formName].validate((valid: boolean) => {
+      ctx.$refs[formName].validate( (valid: boolean) => {
         if (valid) {
-          axios({
+         axios({
             method: "post",
-            // url: "http://localhost:8888/user/Login?"+"email="+ctx.loginUser.email+"&password="+ctx.loginUser.password,
             url: "http://localhost:8888/user/Login",
             headers: {
               'Content-Type': "application/json",
             },
             data: {
-              email: ctx.loginUser.email,
+              email:ctx.loginUser.email,
               password: ctx.loginUser.password,
             },
-          }).then((res) => {
-            alert(res.data);
-            // 跳转到首页
-          });
+    }).then((res) => {
+        if (res.data.code == 0) {
+            localStorage.setItem('userInfo', JSON.stringify(res.data.data));
+            router.push('/home');
+        }else{
+            alert(res.data.msg);
+        }
+     });
         } else {
           console.log("error submit!!");
           return false;
         }
       });
     };
-
     return { handleLogin };
   },
 };

@@ -1,6 +1,5 @@
 import axios from "@/http";
 import { ref } from "vue";
-
 const getStuInfo=()=>{
     const resdata = ref(null)
     const rescode = ref(200)
@@ -37,6 +36,8 @@ const DelStuInfo=(sno)=>{
         resMsg
     }
 } 
+
+
 export {
     getStuInfo,
     DelStuInfo
