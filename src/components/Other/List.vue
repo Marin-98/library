@@ -65,7 +65,6 @@
 import { reactive, ref } from "vue";
 import { DelStuInfo, getStuInfo } from "../../utils/serve";
 import {  ElMessage, ElMessageBox } from 'element-plus'
-import { fa } from "element-plus/lib/locale";
 
 interface IStuInfo {
     id?: number;

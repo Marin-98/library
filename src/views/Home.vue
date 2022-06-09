@@ -44,66 +44,66 @@ const activeIndex=computed(()=>{
   return path;
 })
 let menuList=reactive([
-        {
-          path:"/home",
-          component:Home,
-          name:"home",
-          meta:{ 
-            title:"首页",
-            icon:"HomeFilled",
-          },
-          children:[
-                  {
-                    path:"/homeindex",
-                    component:"@/components/Layout/Content/home/index.vue",
-                    name:"",
-                    meta:{
-                      title:"首页信息",
-                      icon:"",
-                    }
-                  }
-              ],
-        },
-        {
-          path:"/system",
-          component:Home,
-          name:"system",
-          meta:{ 
-            title:"系统设置",
-            icon:"Setting",
-          },
-              children:[
-                  {
-                    path:"/systemindex",
-                    component:"@/components/Layout/Content/system/index.vue",
-                    name:"",
-                    meta:{
-                      title:"系统信息",
-                      icon:"Setting",
-                    }
-                  }
-              ],
-        },
-         {
-          path:"/student",
-          component:Home,
-          name:"student",
-          meta:{ 
-            title:"学生管理",
-            icon:"Stamp",
-          },
-              children:[
-                  {
-                    path:"/studentindex",
-                    component:"@/components/Layout/Content/student/index.vue",
-                    name:"",
-                    meta:{
-                      title:"学生信息",
-                      icon:"",
-                    }
-                  }
-              ],
-        },
+        // {
+        //   path:"/home",
+        //   component:Home,
+        //   name:"home",
+        //   meta:{ 
+        //     title:"首页",
+        //     icon:"HomeFilled",
+        //   },
+        //   children:[
+        //           {
+        //             path:"/homeindex",
+        //             component:"@/components/Layout/Content/home/index.vue",
+        //             name:"",
+        //             meta:{
+        //               title:"首页信息",
+        //               icon:"",
+        //             }
+        //           }
+        //       ],
+        // },
+        // {
+        //   path:"/system",
+        //   component:Home,
+        //   name:"system",
+        //   meta:{ 
+        //     title:"系统设置",
+        //     icon:"Setting",
+        //   },
+        //       children:[
+        //           {
+        //             path:"/systemindex",
+        //             component:"@/components/Layout/Content/system/index.vue",
+        //             name:"",
+        //             meta:{
+        //               title:"系统信息",
+        //               icon:"Setting",
+        //             }
+        //           }
+        //       ],
+        // },
+        //  {
+        //   path:"/student",
+        //   component:Home,
+        //   name:"student",
+        //   meta:{ 
+        //     title:"学生管理",
+        //     icon:"Stamp",
+        //   },
+        //       children:[
+        //           {
+        //             path:"/studentindex",
+        //             component:"@/components/Layout/Content/student/index.vue",
+        //             name:"",
+        //             meta:{
+        //               title:"学生信息",
+        //               icon:"",
+        //             }
+        //           }
+        //       ],
+        // },
         {
           path:"/reading",
           component:Home,
@@ -162,33 +162,27 @@ let menuList=reactive([
                   }
           ],
         },
-        {
-          path:"/class",
-          component:Home,
-          name:"class",
-          meta:{ 
-            title:"班级管理",
-            icon:"Collection",
-          },
-              children:[
-                {
-                  path:"/classindex",
-                  component:"@/components/Layout/Content/class/index.vue",
-                  name:"",
-                  meta:{
-                    title:"班级信息",
-                    icon:"",
-                  }
-                }
-              ],
-        },
+        // {
+        //   path:"/class",
+        //   component:Home,
+        //   name:"class",
+        //   meta:{ 
+        //     title:"班级管理",
+        //     icon:"Collection",
+        //   },
+        //       children:[
+        //         {
+        //           path:"/classindex",
+        //           component:"@/components/Layout/Content/class/index.vue",
+        //           name:"",
+        //           meta:{
+        //             title:"班级信息",
+        //             icon:"",
+        //           }
+        //         }
+        //       ],
+        // },
       ])
-
-// const type='light'
-
-// const getCssVarName = (type: string) => {
-//   return `--el-box-shadow${type ? '-' : ''}${type}`
-// }
 </script>
 
 <style scoped>

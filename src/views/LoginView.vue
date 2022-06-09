@@ -38,7 +38,7 @@
                 <button class="switch__button button switch-btn" @click="change">注册</button>
             </div>
         </div>
-    </div>
+      </div>
     </div>
 </template>
 
@@ -90,7 +90,7 @@
     padding: 0;
     box-sizing: border-box;
     user-select: none;
-} /* Generic */
+} 
 .body {
     width: 100%;
     height: 100vh;

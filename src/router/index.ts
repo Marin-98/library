@@ -9,6 +9,11 @@ const routes:Array<RouteRecordRaw> = [
     component: () => import('../views/LoginView.vue')
   },
   {
+    path: '/test',
+    name: '/test',
+    component: () => import('../components/Other/List.vue')
+  },
+  {
     path: '/:catchAll(.*)',
     name: '/404',
     component: () => import('../views/404.vue')
@@ -90,7 +95,12 @@ const routes:Array<RouteRecordRaw> = [
                     path:"/subreCard",
                     component:()=>import("@/components/Layout/Content/reading/SubReCard.vue"),
                     name:"学生座位预约记录"
-                  }
+                }, 
+                  {
+                    path:"/SeatChose",
+                    component:()=>import("@/components/Layout/Content/reading/SeatChose.vue"),
+                    name:"学生选座"
+                  },
               ],
         },
          {

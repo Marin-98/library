@@ -6,61 +6,82 @@
         class="box-card">
         <template #header>
         <div class="card-header">
-            <el-button type="primary" size="mini" >
+            <el-button type="primary" @click="seatchose" size="mini" >
             <el-icon> <Edit /></el-icon>
-                生成座位
+                选座
             </el-button>
             <Search @searchHandle="searchHandle($event)"></Search>
         </div>
         </template>
         <el-table ref="multipleTableRef"
-             :data="tableData"
+             :data="tableData.resdata"
              style="width: 100%"
+             @selection-change="handleSelectionChange"
              border>
-              <el-table-column type="selection" width="55" />
-            <el-table-column prop="date" label="Date" width="180" />
-            <el-table-column prop="name" label="Name" width="180" />
-            <el-table-column prop="address" label="Address" />
+            <el-table-column type="selection" width="55" />
+            <!-- <el-table-column prop="date" label="Date" width="180" /> -->
+            <el-table-column prop="createTime" label="创建时间"/>
+            <el-table-column prop="name" label="阅览室" width="300"/>
         </el-table>
         <br/>
         <el-pagination
             small
             background
             layout="prev, pager, next"
-            :total="100"
+            :total="10"
+            v-model:current-page="currentPage"
+            :page-size="pageSize"
             class="mt-4"
         />
   </el-card>
 </template>
 
 <script setup lang="ts">
-    import { ref } from 'vue';
-    import Search from '@/components/Layout/Search.vue'
-    const tableData = [
-    {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-    },
-    ]
-    const searchHandle=(event)=>{
-        console.log(event)
+import { reactive, ref } from 'vue';
+import Search from '@/components/Layout/Search.vue'
+import { GetReadingList } from '@/utils/serve';
+import { useRouter } from "vue-router";
+    const tableData = reactive({
+        resdata: [],
+    });
+    const router = useRouter();
+    const currentPage = ref(1);
+    const pageSize = ref(14);
+    GetReadingList("",function(res){
+        tableData.resdata = res;
+    });
+    const searchHandle = (event) => {
+         GetReadingList(event,function(res){
+            tableData.resdata = res;
+         });
     }
+    const multipleSelection = ref();
+    const handleSelectionChange = (val:[]) => {
+        multipleSelection.value = val;
+    }
+const seatchose = () => {
+        if(multipleSelection.value.length == 0){
+            alert("请选择阅览室");
+            return;
+        }else if(multipleSelection.value.length > 1){
+            alert("只能选择一个阅览室");
+            return;
+        }
+        if (localStorage.getItem('userInfo')) { //存储用户信息
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            router.push({
+            path: '/SeatChose',
+            query: {
+                id:multipleSelection.value[0].id,
+                roomid: tableData.resdata[multipleSelection.value[0].id-1].id,
+                row: tableData.resdata[multipleSelection.value[0].id-1].row,
+                lie: tableData.resdata[multipleSelection.value[0].id-1].lie,
+                userid: userInfo.id
+            }
+        });
+        } 
+    }
+   
 </script>
 
 <style scoped>
