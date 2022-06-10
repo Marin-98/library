@@ -12,7 +12,7 @@
                 v-model="value1"
                 type="date"
                 placeholder="Select date and time"/>
-                <el-button type="primary">
+                <el-button type="primary" @click="search">
                     查询
                 </el-button>
             </div>
@@ -87,7 +87,12 @@ getSeatOrderBytime(new Date(value1.value),route.roomid,function(res){
     hasselect.value = res;
      data.resdata=generateData(columns, Number(route.row))
 });
-
+const search = () => {
+    getSeatOrderBytime(new Date(value1.value),route.roomid,function(res){
+        hasselect.value = res;
+         data.resdata=generateData(columns, Number(route.row))
+    });
+}
 const handleClick = (rowIndex) => {
     const arr = rowIndex.path[0].innerHTML.split("排 - ");
     const col = arr[1].split("座")[0];

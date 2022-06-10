@@ -10,6 +10,7 @@ import {createPinia} from 'pinia'
 
 
 
+
 const app = createApp(App)
 
 // 全局挂载axios

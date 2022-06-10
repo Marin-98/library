@@ -4,11 +4,58 @@
           boxShadow: `var(--el-box-shadow-dark)`,
         }">
           <div class="container">
-            <div  class="tcommonBox">
+            <div v-show="!isEdit" class="tcommonBox">
+                <header>
+                    <h1>
+                            编辑个人资料
+                    </h1>
+                </header>
+                <section>
+                    <ul class="userInfoBox" style="list-style:none">
+                        <li class="avatarlist">
+                            <span class="leftTitle">头像</span>
+                            <!-- this.$store.state.host -->
+                             <!-- action="http://www.vuebook.com/port/Userinfo/UploadImg" -->
+                            <el-upload
+                              class="avatar-uploader"
+                              :action="'http://110.42.223.135:8888/Userinfo/UploadImg'"
+                              :show-file-list="false"
+                              :on-success="handleAvatarSuccess"
+                              :before-upload="beforeAvatarUpload">
+                              <img v-if="userInfoObj.avatar" :src="userInfoObj.avatar" class="avatar">
+                              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                              <div slot="tip" class="el-upload__tip">点击上传头像，只能上传jpg/png文件，且不超过1mb</div>
+                            </el-upload>
+                        </li>
+                        <li class="username">
+                            <span class="leftTitle">昵称</span>
+                            <el-input v-model="userInfoObj.username" placeholder="昵称"></el-input> <i  class="fa fa-wa fa-asterisk"></i>
+                        </li>
+                        <li>
+                            <span class="leftTitle">电子邮件</span>
+                            <span>{{userInfoObj.email}}</span>
+                        </li>
+                        <li>
+                            <span class="leftTitle">性别</span>
+                              <el-radio class="radio" v-model="userInfoObj.sex" label="0">男</el-radio>
+                              <el-radio class="radio" v-model="userInfoObj.sex" label="1">女</el-radio>
+                        </li>
+                    </ul>
+                    <div class="saveInfobtn">
+                        <el-Button @click="isEdit=!isEdit">返 回</el-Button>
+                        <el-Button @click="saveInfoFun()">保 存</el-Button>
+                    </div>
+                </section>
+            </div>
+            <div v-show="isEdit" class="tcommonBox">
                 <header>
                     <h1>
                             个人信息
-                        <!-- <span class="gotoEdit"><i class="fa fa-wa fa-edit"></i>编辑</span> -->
+                        <span class="gotoEdit" v-on:click="isEdit=!isEdit">
+                            <el-icon>
+                                <Edit/>
+                            </el-icon>编辑
+                        </span>
                     </h1>
                 </header>
                 <section>
@@ -41,8 +88,12 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
-
+import { reactive, ref, toRefs } from 'vue';
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { inject } from 'vue-demi'
+import { UserInfoSave } from '@/utils/serve';
+const reload = inject('reload')
+    const isEdit =ref(true);
     const userInfoObj=reactive({
         avatar:'',
         username:'',
@@ -55,7 +106,38 @@ import { reactive } from 'vue';
         userInfoObj.username=user.username;
         userInfoObj.email=user.email;
         userInfoObj.sex=user.sex;
-    } 
+} 
+    const beforeAvatarUpload=(file)=>{//判断头像大小
+                const isJPG = file.type == 'image/png'||file.type=='image/jpg'||file.type=='image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 5;
+                if (!isJPG) {
+                    ElMessage.error('上传头像图片只能是 JPG/JPEG/PNG 格式!');
+                }
+                if (!isLt2M) {
+                    ElMessage.error('上传头像图片大小不能超过 5MB!');
+                }
+                return isJPG && isLt2M;
+    }
+    const  handleAvatarSuccess=(res, file)=>{ //上传网站logo
+                if(res.code==1001){//存储
+                    userInfoObj.avatar = res.image_name;
+                    ElMessage.success('上传图片成功');
+                }else{
+                    ElMessage.error('上传图片失败');
+                }
+    }
+    const saveInfoFun = () => {//保存编辑的用户信息
+                // if(userInfoObj.username!=null){ //昵称为必填
+                //      ElMessage.error('昵称为必填项，请填写昵称');
+                //      return;
+                // }
+        UserInfoSave(userInfoObj, function (res) {//保存信息接口，返回展示页
+                 localStorage.setItem('userInfo', JSON.stringify(res.data));
+                    ElMessage.success( '保存成功！');
+                    isEdit.value = false;
+                    reload();
+                })
+            }
 </script>
 
 <style scoped>

@@ -89,6 +89,16 @@ const Signup = (id,callback) => {
          callback && callback(res.data);
      });
 } 
+
+const UserInfoSave = (userInfo, callback) => {
+   axios({
+       method: "post",
+       url: "http://localhost:8888/user/Update",
+       data: userInfo
+    }).then((res) => {
+         callback && callback(res.data);
+    });
+}
 export {
     getStuInfo,
     DelStuInfo,
@@ -98,6 +108,7 @@ export {
     getSeatOrderBytime,
     SubSeatOrder,
     CancelSeatOrder,
-    Signup
+    Signup,
+    UserInfoSave
 }
 
